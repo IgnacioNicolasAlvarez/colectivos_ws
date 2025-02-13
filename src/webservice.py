@@ -2,8 +2,6 @@ import websocket
 import json
 import threading
 
-from logger import logger
-
 class WebSocketClient:
     def __init__(self, url, storageClient):
         self.url = url
@@ -23,17 +21,17 @@ class WebSocketClient:
                 self.storageClient.upload_data(json.dumps(ramales_data, indent=4))
 
         except Exception as e:
-            logger.error(f"Error: {e}")
+            pass
 
     def on_error(self, ws, error):
-        logger.error(f"Error: {error}")
+        pass
 
     def on_close(self, ws, close_status_code, close_msg):
-        logger.info(f"Connection closed: {close_status_code} - {close_msg}")
+        pass
 
     def on_open(self, ws):
         def run(*args):
-            logger.info("Connection opened")
+            pass
             subscription_message = {
                 "identifier": "{\"channel\":\"PosicionesChannel\"}",
                 "command": "subscribe"
