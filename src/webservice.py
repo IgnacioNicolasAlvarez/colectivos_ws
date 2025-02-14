@@ -1,6 +1,7 @@
 import websocket
 import json
 import threading
+import logging
 
 class WebSocketClient:
     def __init__(self, url, storageClient):
@@ -21,10 +22,11 @@ class WebSocketClient:
                 self.storageClient.upload_data(json.dumps(ramales_data, indent=4))
 
         except Exception as e:
-            pass
+            logging.error(f"Error: {e}")
 
     def on_error(self, ws, error):
-        pass
+        logging.error(f"Error: {e}")
+
 
     def on_close(self, ws, close_status_code, close_msg):
         pass
