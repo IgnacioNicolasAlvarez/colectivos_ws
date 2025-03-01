@@ -1,6 +1,6 @@
 from azure.storage.blob import BlobServiceClient
 from uuid import uuid4
-from datetime import datetime
+from datetime import datetime, timedelta
 
 class AzureBlobStorage:
     def __init__(self, account_url, credential, container_name):
@@ -14,7 +14,7 @@ class AzureBlobStorage:
         except Exception as e:
             if "ContainerAlreadyExists" not in str(e):
                 raise
-        now = datetime.today()
+        now = datetime.now() - timedelta(hours=3)
         blob_name = f"bronze/posiciones/{now.year}/{now.month}/{now.day}/{uuid4()}.json"
         blob_client = container_client.get_blob_client(blob_name)
         blob_client.upload_blob(data, overwrite=False)
