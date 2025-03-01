@@ -17,7 +17,7 @@ class WebSocketClient:
         try:
             data = json.loads(message.replace(r"\\", ""))
             if data.get("message") and data.get("type") != "ping":
-                ramales_data = data.get("message").get("ramales").replace(r"\\", "")
+                ramales_data = data["message"]["ramales"].replace(r"\\", "")
                 ramales_data = json.loads(ramales_data)
                 self.storageClient.upload_data(json.dumps(ramales_data, indent=4))
 
@@ -25,7 +25,7 @@ class WebSocketClient:
             logging.error(f"Error: {e}")
 
     def on_error(self, ws, error):
-        logging.error(f"Error: {e}")
+        logging.error(f"Error: {error}")
 
 
     def on_close(self, ws, close_status_code, close_msg):
