@@ -15,6 +15,6 @@ class AzureBlobStorage:
             if "ContainerAlreadyExists" not in str(e):
                 raise
         now = datetime.now() - timedelta(hours=3)
-        blob_name = f"bronze/posiciones/{now.year}/{now.month}/{now.day}/{uuid4()}.json"
+        blob_name = f"posiciones/{now.year}/{now.month}/{now.day}/{uuid4()}.json"
         blob_client = container_client.get_blob_client(blob_name)
         blob_client.upload_blob(data, overwrite=False)
