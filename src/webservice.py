@@ -2,6 +2,7 @@ import websocket
 import json
 import threading
 import logging
+from datetime import datetime
 
 class WebSocketClient:
     def __init__(self, url, storageClient):
@@ -19,6 +20,11 @@ class WebSocketClient:
             if data.get("message") and data.get("type") != "ping":
                 ramales_data = data["message"]["ramales"].replace(r"\\", "")
                 ramales_data = json.loads(ramales_data)
+                
+                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                for ramal in ramales_data:
+                    ramal['inserted_at'] = current_time
+                
                 self.storageClient.upload_data(json.dumps(ramales_data, indent=4))
 
         except Exception as e:
