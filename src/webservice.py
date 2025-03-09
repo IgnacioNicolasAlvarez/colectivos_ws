@@ -22,10 +22,9 @@ class WebSocketClient:
                 ramales_data = data["message"]["ramales"].replace(r"\\", "")
                 ramales_data = json.loads(ramales_data)
                 
-                current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                current_time = (datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") - timedelta(hours=3)).strftime("%Y-%m-%d %H:%M:%S")
-                current_time.tzinfo = tz.gettz("America/Argentina/Buenos_Aires")
-                
+                current_time = datetime.now(tz=tz.gettz("America/Argentina/Buenos_Aires"))
+                current_time = current_time.isoformat()
+
                 for ramal in ramales_data:
                     ramal['inserted_at'] = current_time
                 
