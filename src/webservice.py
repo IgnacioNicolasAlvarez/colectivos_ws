@@ -2,7 +2,8 @@ import websocket
 import json
 import threading
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
+from dateutil import tz
 
 class WebSocketClient:
     def __init__(self, url, storageClient):
@@ -22,6 +23,9 @@ class WebSocketClient:
                 ramales_data = json.loads(ramales_data)
                 
                 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                current_time = (datetime.strptime(current_time, "%Y-%m-%d %H:%M:%S") - timedelta(hours=3)).strftime("%Y-%m-%d %H:%M:%S")
+                current_time.tzinfo = tz.gettz("America/Argentina/Buenos_Aires")
+                
                 for ramal in ramales_data:
                     ramal['inserted_at'] = current_time
                 
